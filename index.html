@@ -3,12 +3,11 @@
 <head>
     <title>super duper telegram</title>
     <style type="text/css">
-        .wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+        body { margin: 0; }
+        svg { width: 100vw; height: 100vh; }
+        circle { transition: all 0.5s ease-out; fill: cadetblue;}
+        circle:hover { fill: purple; }
+    }
 
     </style>
     <script type="text/javascript">
@@ -20,25 +19,35 @@
             }
         }
         ready(function(){
-            var svg = document.getElementById("awesomesvg");
+            var mywrapper = document.getElementById("wrapper");
+            var awesomesvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+            var myviewboxminx = 0;
+            var myviewboxminy = 0;
+            var myviewboxwidth = window.innerWidth;
+            var myviewboxheight = window.innerHeight;
+            awesomesvg.setAttribute('viewBox', myviewboxminx+' '+myviewboxminy+' '+myviewboxwidth+' '+myviewboxheight);
+            awesomesvg.setAttribute('preserveAspectRatio', 'none'); 
+            mywrapper.appendChild(awesomesvg);
             var step;
-            for (step = 0 ; step < 5 ; step++) {
+            for (step = 0 ; step < 10 ; step++) {
                 var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                circle.setAttribute('cx', 100+step*150);
-                circle.setAttribute('cy', 100);
-                circle.setAttribute('r', 100);
+                circle.setAttribute('cx', myviewboxwidth/20+step*myviewboxwidth/10);
+                circle.setAttribute('cy', myviewboxheight/20+step*myviewboxheight/10);
+                circle.setAttribute('r', myviewboxwidth/12);
                 circle.setAttribute('fill', 'rgba(100,100,100,0.5)');
-                svg.appendChild(circle);
+                awesomesvg.appendChild(circle);
+            }
+            var allcircles = awesomesvg.getElementsByTagName('circle');
+            for (var i = 0; i < allcircles.length; i++){
+                var myradius = allcircles[i].getAttribute('r');
+                allcircles [i].setAttribute ('r', myradius/2);
             }
         })
     </script>
 </head>
 <body>
-    <div class="wrapper">
-
-        <svg id="awesomesvg" viewBox="0 0 1000 400">
-
-        </svg>
+    <div id="wrapper" class="wrapper">
 
     </div>
 </body>
