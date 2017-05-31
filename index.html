@@ -5,8 +5,24 @@
     <style type="text/css">
         body { margin: 0; }
         svg { width: 100vw; height: 100vh; }
-        circle { transition: all 0.5s ease-out; fill: cadetblue;}
-        circle:hover { fill: purple; }
+        circle {
+            animation: circlepulse infinite 3s linear;
+        }
+
+        @keyframes circlepulse {
+            0% {
+                fill: cadetblue;
+                r: 20px;
+            }
+            50% {
+                fill: slategray;
+                r: 60px;
+            }
+            100% {
+                fill: cadetblue;
+                r: 20px;
+            }
+        }
     }
 
     </style>
@@ -16,14 +32,6 @@
                 fn();
             } else {
                 document.addEventListener('DOMContentLoaded', fn);
-            }
-        }
-        function mykeyframes() {
-            var svgelement = document.getElementById("mycircles");
-            var allcircles = svgelement.getElementsByTagName('circle');
-            for (var i = 0; i < allcircles.length; i++){
-                var myradius = allcircles[i].getAttribute('r');
-                allcircles [i].setAttribute ('r', myradius/2);
             }
         }
 
@@ -44,11 +52,10 @@
                 var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                 circle.setAttribute('cx', myviewboxwidth/20+step*myviewboxwidth/10);
                 circle.setAttribute('cy', myviewboxheight/20+step*myviewboxheight/10);
-                circle.setAttribute('r', myviewboxwidth/12);
-                circle.setAttribute('fill', 'rgba(100,100,100,0.5)');
+                circle.setAttribute('r', myviewboxwidth/24);
                 awesomesvg.appendChild(circle);
             }
-            setTimeout(mykeyframes);
+
         })
     </script>
 </head>
