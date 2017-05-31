@@ -5,7 +5,6 @@
     <style type="text/css">
         body { margin: 0; }
         svg { width: 100vw; height: 100vh; }
-    }
 
     </style>
     <script type="text/javascript">
@@ -41,18 +40,16 @@
                     {
                       fill: 'cadetblue',
                       r: myviewboxwidth/32,
-                      cx: myviewboxwidth/20+step*myviewboxwidth/10
+                      transform: 'rotate(0deg) translateX(100px) rotate(0deg)'
                     },
                     {
                       fill: 'slategray',
                       r: myviewboxwidth/64,
-                      cx: myviewboxwidth/24+(9-step)*myviewboxwidth/10
                     },
                     {
                       fill: 'cadetblue',
                       r: myviewboxwidth/32,
-                      cx: myviewboxwidth/20+step*myviewboxwidth/10
-                    }
+                      transform: 'rotate(360deg) translateX(100px) rotate(-360deg)'                    }
                 ]
                 var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                 circle.setAttribute('cx', myviewboxwidth/20+step*myviewboxwidth/10);
