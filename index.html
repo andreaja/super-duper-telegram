@@ -1,72 +1,85 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>super duper telegram</title>
-  <style type="text/css">
-   body { margin: 0; }
-   div.wrapper { margin: 0 auto; height: 100vh; display: flex; justify-content: center; align-items: center; }
-   svg { width: 100vh; height: 100vh; border: 1px solid;}
+  <head>
+    <title>super duper telegram</title>
+    <style type="text/css">
+     body { margin: 0; }
+     div.wrapper { margin: 0 auto; height: 100vh; display: flex; justify-content: center; align-items: center; }
+     svg { width: 100vh; height: 100vh; border: 1px solid;}
 
-  </style>
-  <script type="text/javascript">
-   function ready(fn) {
-     if (document.readyState != 'loading'){
-       fn();
-     } else {
-       document.addEventListener('DOMContentLoaded', fn);
-     }
-   }
-
-   ready(function(){
-     var mywrapper = document.getElementById("wrapper");
-     var awesomesvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-
-     var myviewboxminx = 0;
-     var myviewboxminy = 0;
-     var myviewboxwidth = window.innerHeight;
-     var myviewboxheight = window.innerHeight;
-     awesomesvg.setAttribute('viewBox', myviewboxminx+' '+myviewboxminy+' '+myviewboxwidth+' '+myviewboxheight);
-     awesomesvg.setAttribute('id', 'mycircles');
-     awesomesvg.setAttribute('preserveAspectRatio', 'none');
-     mywrapper.appendChild(awesomesvg);
-
-     var pulsateCirclesTiming = {
-       duration: 10000,
-       iterations: Infinity
+    </style>
+    <script type="text/javascript">
+     function ready(fn) {
+       if (document.readyState != 'loading'){
+         fn();
+       } else {
+         document.addEventListener('DOMContentLoaded', fn);
+       }
      }
 
-     var step;
-     for (step = 0 ; step < 10 ; step++) {
-       var rotation_radius = (step + 1) * 5;
-       var pulsateCircles = [
-         {
-           fill: 'cadetblue',
-           r: myviewboxwidth/32,
-           transform: 'rotate(0deg) translateX(' + rotation_radius + 'vh) rotate(0deg)'
-         },
-         {
-           fill: 'slategray',
-           r: myviewboxwidth/128,
-         },
-         {
-           fill: 'cadetblue',
-           r: myviewboxwidth/32,
-           transform: 'rotate(360deg) translateX(' + rotation_radius + 'vh) rotate(-360deg)'
-         }
-       ]
-       var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-       circle.setAttribute('cx', myviewboxwidth/2);
-       circle.setAttribute('cy', myviewboxheight/2);
-       circle.animate(pulsateCircles, pulsateCirclesTiming);
-       awesomesvg.appendChild(circle);
-     }
+     ready(function(){
+       var mywrapper = document.getElementById("wrapper");
+       var awesomesvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 
-   })
-  </script>
-</head>
-<body>
+       var myviewboxminx = 0;
+       var myviewboxminy = 0;
+       var myviewboxwidth = window.innerHeight;
+       var myviewboxheight = window.innerHeight;
+       awesomesvg.setAttribute('viewBox', myviewboxminx+' '+myviewboxminy+' '+myviewboxwidth+' '+myviewboxheight);
+       awesomesvg.setAttribute('id', 'mycircles');
+       awesomesvg.setAttribute('preserveAspectRatio', 'none');
+       mywrapper.appendChild(awesomesvg);
+
+       var pulsateCirclesTiming = {
+         duration: 10000,
+         iterations: Infinity
+       }
+
+       var rotateCirclesTiming = {
+         duration: 15000,
+         iterations: Infinity
+       }
+
+       var step;
+       for (step = 0 ; step < 10 ; step++) {
+         var rotation_radius = (step + 1) * 5;
+         var pulsateCircles = [
+           {
+             fill: 'cadetblue',
+             r: myviewboxwidth/32
+           },
+           {
+             fill: 'slategray',
+             r: myviewboxwidth/128,
+           },
+           {
+             fill: 'cadetblue',
+             r: myviewboxwidth/32,
+           }
+         ];
+         var rotateCircles = [
+           {
+             transform: 'rotate(0deg) translateX(' + rotation_radius + 'vh) rotate(0deg)'
+           },
+           {
+             transform: 'rotate(360deg) translateX(' + rotation_radius + 'vh) rotate(-360deg)'
+           }
+         ];
+
+         var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+         circle.setAttribute('cx', myviewboxwidth/2);
+         circle.setAttribute('cy', myviewboxheight/2);
+         circle.animate(pulsateCircles, pulsateCirclesTiming);
+         circle.animate(rotateCircles, rotateCirclesTiming);
+         awesomesvg.appendChild(circle);
+       }
+
+     })
+    </script>
+  </head>
+  <body>
     <div id="wrapper" class="wrapper">
 
     </div>
-</body>
+  </body>
 </html>
