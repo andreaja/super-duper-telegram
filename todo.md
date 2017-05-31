@@ -1,0 +1,2 @@
+- Add sound
+- Get weird input and translate into visualizations/sound
