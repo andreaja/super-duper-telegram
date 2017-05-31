@@ -26,16 +26,16 @@
        var myviewboxwidth = window.innerHeight;
        var myviewboxheight = window.innerHeight;
        awesomesvg.setAttribute('viewBox', myviewboxminx+' '+myviewboxminy+' '+myviewboxwidth+' '+myviewboxheight);
-       awesomesvg.setAttribute('id', 'mycircles');
+       awesomesvg.setAttribute('id', 'myrects');
        awesomesvg.setAttribute('preserveAspectRatio', 'none');
        mywrapper.appendChild(awesomesvg);
 
-       var pulsateCirclesTiming = {
-         duration: 10000,
+       var pulsateRectsTiming = {
+         duration: 1000,
          iterations: Infinity
        }
 
-       var rotateCirclesTiming = {
+       var rotateRectsTiming = {
          duration: 15000,
          iterations: Infinity
        }
@@ -43,21 +43,24 @@
        var step;
        for (step = 0 ; step < 10 ; step++) {
          var rotation_radius = (step + 1) * 5;
-         var pulsateCircles = [
+         var pulsateRects = [
            {
              fill: 'cadetblue',
-             r: myviewboxwidth/32
+             width: myviewboxwidth/32,
+             height: myviewboxwidth/32
            },
            {
              fill: 'slategray',
-             r: myviewboxwidth/128,
+             width: myviewboxwidth/128,
+             height: myviewboxwidth/128
            },
            {
              fill: 'cadetblue',
-             r: myviewboxwidth/32,
+             width: myviewboxwidth/32,
+             height: myviewboxwidth/32
            }
          ];
-         var rotateCircles = [
+         var rotateRects = [
            {
              transform: 'rotate(0deg) translateX(' + rotation_radius + 'vh) rotate(0deg)'
            },
@@ -66,12 +69,14 @@
            }
          ];
 
-         var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-         circle.setAttribute('cx', myviewboxwidth/2);
-         circle.setAttribute('cy', myviewboxheight/2);
-         circle.animate(pulsateCircles, pulsateCirclesTiming);
-         circle.animate(rotateCircles, rotateCirclesTiming);
-         awesomesvg.appendChild(circle);
+         var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+         rect.setAttribute('x', myviewboxwidth/2);
+         rect.setAttribute('y', myviewboxheight/2);
+         rect.setAttribute('height', myviewboxwidth/32);
+         rect.setAttribute('width', myviewboxwidth/32);
+         rect.animate(pulsateRects, pulsateRectsTiming);
+         rect.animate(rotateRects, rotateRectsTiming);
+         awesomesvg.appendChild(rect);
        }
 
      })
