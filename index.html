@@ -5,24 +5,6 @@
     <style type="text/css">
         body { margin: 0; }
         svg { width: 100vw; height: 100vh; }
-        circle {
-            animation: circlepulse infinite 3s linear;
-        }
-
-        @keyframes circlepulse {
-            0% {
-                fill: cadetblue;
-                r: 20px;
-            }
-            50% {
-                fill: slategray;
-                r: 60px;
-            }
-            100% {
-                fill: cadetblue;
-                r: 20px;
-            }
-        }
     }
 
     </style>
@@ -52,8 +34,23 @@
                 var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                 circle.setAttribute('cx', myviewboxwidth/20+step*myviewboxwidth/10);
                 circle.setAttribute('cy', myviewboxheight/20+step*myviewboxheight/10);
-                circle.setAttribute('r', myviewboxwidth/24);
                 awesomesvg.appendChild(circle);
+            }
+
+            var pulsateCircles = [
+                { fill: 'cadetblue', r: myviewboxwidth/24 },
+                { fill: 'slategray', r: myviewboxwidth/32 },
+                { fill: 'cadetblue', r: myviewboxwidth/24 }
+            ]
+
+            var pulsateCirclesTiming = {
+                duration: 3000,
+                iterations: Infinity
+            }
+
+            var allcircles = awesomesvg.getElementsByTagName('circle');
+            for (var i = 0; i < allcircles.length; i++){
+                allcircles [i].animate(pulsateCircles, pulsateCirclesTiming);
             }
 
         })
