@@ -18,6 +18,15 @@
                 document.addEventListener('DOMContentLoaded', fn);
             }
         }
+        function mykeyframes() {
+            var svgelement = document.getElementById("mycircles");
+            var allcircles = svgelement.getElementsByTagName('circle');
+            for (var i = 0; i < allcircles.length; i++){
+                var myradius = allcircles[i].getAttribute('r');
+                allcircles [i].setAttribute ('r', myradius/2);
+            }
+        }
+
         ready(function(){
             var mywrapper = document.getElementById("wrapper");
             var awesomesvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -27,7 +36,8 @@
             var myviewboxwidth = window.innerWidth;
             var myviewboxheight = window.innerHeight;
             awesomesvg.setAttribute('viewBox', myviewboxminx+' '+myviewboxminy+' '+myviewboxwidth+' '+myviewboxheight);
-            awesomesvg.setAttribute('preserveAspectRatio', 'none'); 
+            awesomesvg.setAttribute('id', 'mycircles');
+            awesomesvg.setAttribute('preserveAspectRatio', 'none');
             mywrapper.appendChild(awesomesvg);
             var step;
             for (step = 0 ; step < 10 ; step++) {
@@ -38,11 +48,7 @@
                 circle.setAttribute('fill', 'rgba(100,100,100,0.5)');
                 awesomesvg.appendChild(circle);
             }
-            var allcircles = awesomesvg.getElementsByTagName('circle');
-            for (var i = 0; i < allcircles.length; i++){
-                var myradius = allcircles[i].getAttribute('r');
-                allcircles [i].setAttribute ('r', myradius/2);
-            }
+            setTimeout(mykeyframes);
         })
     </script>
 </head>
