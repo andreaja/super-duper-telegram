@@ -29,28 +29,36 @@
             awesomesvg.setAttribute('id', 'mycircles');
             awesomesvg.setAttribute('preserveAspectRatio', 'none');
             mywrapper.appendChild(awesomesvg);
-            var step;
-            for (step = 0 ; step < 10 ; step++) {
-                var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                circle.setAttribute('cx', myviewboxwidth/20+step*myviewboxwidth/10);
-                circle.setAttribute('cy', myviewboxheight/20+step*myviewboxheight/10);
-                awesomesvg.appendChild(circle);
-            }
-
-            var pulsateCircles = [
-                { fill: 'cadetblue', r: myviewboxwidth/24 },
-                { fill: 'slategray', r: myviewboxwidth/32 },
-                { fill: 'cadetblue', r: myviewboxwidth/24 }
-            ]
 
             var pulsateCirclesTiming = {
-                duration: 3000,
+                duration: 10000,
                 iterations: Infinity
             }
 
-            var allcircles = awesomesvg.getElementsByTagName('circle');
-            for (var i = 0; i < allcircles.length; i++){
-                allcircles [i].animate(pulsateCircles, pulsateCirclesTiming);
+            var step;
+            for (step = 0 ; step < 10 ; step++) {
+                var pulsateCircles = [
+                    {
+                      fill: 'cadetblue',
+                      r: myviewboxwidth/32,
+                      cx: myviewboxwidth/20+step*myviewboxwidth/10
+                    },
+                    {
+                      fill: 'slategray',
+                      r: myviewboxwidth/64,
+                      cx: myviewboxwidth/24+(9-step)*myviewboxwidth/10
+                    },
+                    {
+                      fill: 'cadetblue',
+                      r: myviewboxwidth/32,
+                      cx: myviewboxwidth/20+step*myviewboxwidth/10
+                    }
+                ]
+                var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute('cx', myviewboxwidth/20+step*myviewboxwidth/10);
+                circle.setAttribute('cy', myviewboxheight/20+step*myviewboxheight/10);
+                circle.animate(pulsateCircles, pulsateCirclesTiming);
+                awesomesvg.appendChild(circle);
             }
 
         })
