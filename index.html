@@ -4,7 +4,8 @@
   <title>super duper telegram</title>
   <style type="text/css">
    body { margin: 0; }
-   svg { width: 100vw; height: 100vh; }
+   div.wrapper { margin: 0 auto; height: 100vh; display: flex; justify-content: center; align-items: center; }
+   svg { width: 100vh; height: 100vh; border: 1px solid;}
 
   </style>
   <script type="text/javascript">
@@ -22,7 +23,7 @@
 
      var myviewboxminx = 0;
      var myviewboxminy = 0;
-     var myviewboxwidth = window.innerWidth;
+     var myviewboxwidth = window.innerHeight;
      var myviewboxheight = window.innerHeight;
      awesomesvg.setAttribute('viewBox', myviewboxminx+' '+myviewboxminy+' '+myviewboxwidth+' '+myviewboxheight);
      awesomesvg.setAttribute('id', 'mycircles');
@@ -36,24 +37,26 @@
 
      var step;
      for (step = 0 ; step < 10 ; step++) {
+       var rotation_radius = (step + 1) * 5;
        var pulsateCircles = [
          {
            fill: 'cadetblue',
            r: myviewboxwidth/32,
-           transform: 'rotate(0deg) translateX(100px) rotate(0deg)'
+           transform: 'rotate(0deg) translateX(' + rotation_radius + 'vh) rotate(0deg)'
          },
          {
            fill: 'slategray',
-           r: myviewboxwidth/64,
+           r: myviewboxwidth/128,
          },
          {
            fill: 'cadetblue',
            r: myviewboxwidth/32,
-           transform: 'rotate(360deg) translateX(100px) rotate(-360deg)'                    }
+           transform: 'rotate(360deg) translateX(' + rotation_radius + 'vh) rotate(-360deg)'
+         }
        ]
        var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-       circle.setAttribute('cx', myviewboxwidth/20+step*myviewboxwidth/10);
-       circle.setAttribute('cy', myviewboxheight/20+step*myviewboxheight/10);
+       circle.setAttribute('cx', myviewboxwidth/2);
+       circle.setAttribute('cy', myviewboxheight/2);
        circle.animate(pulsateCircles, pulsateCirclesTiming);
        awesomesvg.appendChild(circle);
      }
