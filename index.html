@@ -29,19 +29,20 @@
        awesomesvg.setAttribute('id', 'mycircles');
        awesomesvg.setAttribute('preserveAspectRatio', 'none');
        mywrapper.appendChild(awesomesvg);
-
-       var pulsateCirclesTiming = {
-         duration: 10000,
-         iterations: Infinity
-       }
-
-       var rotateCirclesTiming = {
-         duration: 15000,
-         iterations: Infinity
-       }
-
        var step;
        for (step = 0 ; step < 10 ; step++) {
+         
+         var pulsateCirclesTiming = {
+           duration: ((step + 1) * 1000 - 500 ) +  Math.random()* 1000,
+           iterations: Infinity
+         }
+         console.log(pulsateCirclesTiming.duration);
+
+         var rotateCirclesTiming = {
+           duration: 15000,
+           iterations: Infinity
+         }
+
          var rotation_radius = (step + 1) * 5;
          var pulsateCircles = [
            {
@@ -49,8 +50,16 @@
              r: myviewboxwidth/32
            },
            {
-             fill: 'slategray',
+             fill: 'firebrick',
+             r: myviewboxwidth/64,
+           },
+           {
+             fill: 'maroon',
              r: myviewboxwidth/128,
+           },
+           {
+             fill: 'purple',
+             r: myviewboxwidth/64,
            },
            {
              fill: 'cadetblue',
@@ -73,7 +82,6 @@
          circle.animate(rotateCircles, rotateCirclesTiming);
          awesomesvg.appendChild(circle);
        }
-
      })
     </script>
   </head>
