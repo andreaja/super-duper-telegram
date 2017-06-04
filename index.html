@@ -9,12 +9,71 @@
 
     </style>
     <script type="text/javascript">
+     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+     var oscillators = {};
+
      function ready(fn) {
        if (document.readyState != 'loading'){
          fn();
        } else {
          document.addEventListener('DOMContentLoaded', fn);
        }
+     }
+
+     function playAudio(circleId){
+       if(!oscillators[circleId]){
+         freq = (circleId+1) * 400;
+         oscillators[circleId] = audioCtx.createOscillator();
+         oscillators[circleId].frequency.value = freq; //hz
+         oscillators[circleId].start();
+       }
+
+       oscillators[circleId].connect(audioCtx.destination);
+     }
+
+     function stopAudio(circleId) {
+       if(oscillators[circleId]){
+         oscillators[circleId].disconnect(audioCtx.destination);
+       }
+     }
+
+     function pulsateCircle(circle, circleId, myviewboxwidth, shouldPlay) {
+       var pulsateCirclesTiming = {
+         duration: ((circleId + 1) * 1000 - 500 ) +  Math.random()* 1000,
+         iterations: 1
+       }
+       var pulsateCircles = [
+         {
+           fill: 'cadetblue',
+           r: myviewboxwidth/32
+         },
+         {
+           fill: 'firebrick',
+           r: myviewboxwidth/64,
+         },
+         {
+           fill: 'maroon',
+           r: myviewboxwidth/128,
+         },
+         {
+           fill: 'purple',
+           r: myviewboxwidth/64,
+         },
+         {
+           fill: 'cadetblue',
+           r: myviewboxwidth/32,
+         }
+       ];
+       if(shouldPlay){
+         playAudio(circleId);
+       } else {
+         stopAudio(circleId);
+       }
+       var animation = circle.animate(pulsateCircles, pulsateCirclesTiming);
+       animation.onfinish = function(){
+         pulsateCircle(circle, circleId, myviewboxwidth, !shouldPlay);
+       };
+
      }
 
      function displayVisualization(){
@@ -31,10 +90,6 @@
        mywrapper.appendChild(awesomesvg);
        var step;
        for (step = 0 ; step < 10 ; step++) {
-         var pulsateCirclesTiming = {
-           duration: ((step + 1) * 1000 - 500 ) +  Math.random()* 1000,
-           iterations: Infinity
-         }
 
          var rotateCirclesTiming = {
            duration: 15000,
@@ -42,28 +97,6 @@
          }
 
          var rotation_radius = (step + 1) * 4;
-         var pulsateCircles = [
-           {
-             fill: 'cadetblue',
-             r: myviewboxwidth/32
-           },
-           {
-             fill: 'firebrick',
-             r: myviewboxwidth/64,
-           },
-           {
-             fill: 'maroon',
-             r: myviewboxwidth/128,
-           },
-           {
-             fill: 'purple',
-             r: myviewboxwidth/64,
-           },
-           {
-             fill: 'cadetblue',
-             r: myviewboxwidth/32,
-           }
-         ];
          var rotateCircles = [
            {
              transform: 'rotate(0deg) translateX(' + rotation_radius + 'vh) rotate(0deg)'
@@ -76,23 +109,9 @@
          var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
          circle.setAttribute('cx', myviewboxwidth/2);
          circle.setAttribute('cy', myviewboxheight/2);
-         circle.setAttribute('r', myviewboxheight/64);
-         circle.animate(pulsateCircles, pulsateCirclesTiming);
          circle.animate(rotateCircles, rotateCirclesTiming);
+         pulsateCircle(circle, step, myviewboxwidth, false);
          awesomesvg.appendChild(circle);
-       }
-     }
-     function playAudio(midi){
-       var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-       var oscillators = {};
-       var freqs = [400, 800, 1000, 1200, 1500, 1800, 2000, 2200]
-       for( var i = 0; i < freqs.length; i+=1) {
-         freq = freqs[i]
-         oscillators[freq] = audioCtx.createOscillator();
-         oscillators[freq].connect(audioCtx.destination);
-         oscillators[freq].frequency.value = freq; //hz
-         oscillators[freq].start();
        }
      }
      ready(function(){
