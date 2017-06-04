@@ -17,7 +17,7 @@
        }
      }
 
-     ready(function(){
+     function displayVisualization(){
        var mywrapper = document.getElementById("wrapper");
        var awesomesvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 
@@ -77,10 +77,15 @@
          var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
          circle.setAttribute('cx', myviewboxwidth/2);
          circle.setAttribute('cy', myviewboxheight/2);
+         circle.setAttribute('r', myviewboxheight/64);
          circle.animate(pulsateCircles, pulsateCirclesTiming);
          circle.animate(rotateCircles, rotateCirclesTiming);
          awesomesvg.appendChild(circle);
        }
+     }
+
+     ready(function(){
+       displayVisualization();
      })
     </script>
   </head>
