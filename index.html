@@ -82,9 +82,22 @@
          awesomesvg.appendChild(circle);
        }
      }
+     function playAudio(midi){
+       var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+       var oscillators = {};
+       var freqs = [400, 800, 1000, 1200, 1500, 1800, 2000, 2200]
+       for( var i = 0; i < freqs.length; i+=1) {
+         freq = freqs[i]
+         oscillators[freq] = audioCtx.createOscillator();
+         oscillators[freq].connect(audioCtx.destination);
+         oscillators[freq].frequency.value = freq; //hz
+         oscillators[freq].start();
+       }
+     }
      ready(function(){
        displayVisualization();
+       playAudio();
      })
     </script>
   </head>
