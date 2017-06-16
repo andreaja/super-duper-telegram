@@ -38,19 +38,24 @@
 
      function playAudio(circleId){
        if(!oscillators[circleId]){
+       oscillators[circleId]=[];
          freq = (circleId+1) * 400;
-         oscillators[circleId] = audioCtx.createOscillator();
-         oscillators[circleId].frequency.value = freq; //hz
-         oscillators[circleId].type='sawtooth';
-         oscillators[circleId].start();
+         oscillators[circleId][0] = audioCtx.createOscillator();
+         oscillators[circleId][0].frequency.value = freq; //hz
+         oscillators[circleId][0].type='sine';
+         oscillators[circleId][0].start();
+         oscillators[circleId][1] = audioCtx.createWaveShaper();
+         oscillators[circleId][1].curve = makeDistortionCurve(50);
+
+         oscillators[circleId][0].connect(oscillators[circleId][1]);
        }
 
-       oscillators[circleId].connect(audioCtx.destination);
+       oscillators[circleId][1].connect(audioCtx.destination);
      }
 
      function stopAudio(circleId) {
        if(oscillators[circleId]){
-         oscillators[circleId].disconnect(audioCtx.destination);
+         oscillators[circleId][1].disconnect(audioCtx.destination);
        }
      }
 
