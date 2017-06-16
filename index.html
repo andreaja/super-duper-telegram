@@ -25,6 +25,7 @@
          freq = (circleId+1) * 400;
          oscillators[circleId] = audioCtx.createOscillator();
          oscillators[circleId].frequency.value = freq; //hz
+         oscillators[circleId].type='sawtooth';
          oscillators[circleId].start();
        }
 
